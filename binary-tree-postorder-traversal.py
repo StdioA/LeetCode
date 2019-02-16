@@ -12,7 +12,7 @@ from made_bitree import TreeNode
 class Solution:
     # @param {TreeNode} root
     # @return {integer[]}
-    def inorderTraversal(self, root):
+    def postorderTraversal(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
