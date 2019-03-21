@@ -26,9 +26,7 @@ func matrixReshape(nums [][]int, r int, c int) [][]int {
 }
 
 func main() {
-	matrix := make([][]int, 2)
-	matrix[0] = []int{1, 2}
-	matrix[1] = []int{3, 4}
+	matrix := [][]int{{1, 2}, {3, 4}}
 
 	fmt.Println(matrixReshape(matrix, 1, 4))
 }

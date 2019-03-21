@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func sortArrayByParity(A []int) []int {
-	result := make([]int, 0)
+	var result []int
 	// for _, n := range A
 	for i := 0; i < len(A); i++ {
 		if A[i]%2 == 1 {
