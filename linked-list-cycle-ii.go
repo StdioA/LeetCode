@@ -1,3 +1,11 @@
+package main
+
+import (
+	"fmt"
+
+	"github.com/stdioa/leetcode/linkedlist"
+)
+
 /**
  * Definition for singly-linked list.
  * type ListNode struct {
@@ -5,7 +13,7 @@
  *     Next *ListNode
  * }
  */
-func detectCycle(head *ListNode) *ListNode {
+func detectCycle(head *linkedlist.ListNode) *linkedlist.ListNode {
 	if head == nil {
 		return nil
 	}
@@ -28,4 +36,10 @@ func detectCycle(head *ListNode) *ListNode {
 		fast = fast.Next
 	}
 	return fast
+}
+
+func main() {
+	list := linkedlist.NewWithCycle([]int{3, 2, 0, 4}, 1)
+	node := detectCycle(list)
+	fmt.Println(node.Val) // 2
 }
