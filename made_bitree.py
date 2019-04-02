@@ -9,6 +9,7 @@
 #      5
 # The above binary tree is serialized as "{1,2,3,#,#,4,#,#,5}"
 
+
 class TreeNode(object):
     def __init__(self, x=None):
         if isinstance(x, str):
@@ -16,7 +17,7 @@ class TreeNode(object):
             self.val = int(nums[0].strip())
             self.left = None
             self.right = None
-            
+
             nodelist = [self]                               # The nodelist records the nodes that is going to be executed
             pointer = self
             is_left = True
@@ -74,6 +75,7 @@ class TreeNode(object):
 
     def __repr__(self):
         return self.__str__()
+
 
 if __name__ == '__main__':
     a = TreeNode("{1, 2, 3, #, #, 4, #, #, 5}")
