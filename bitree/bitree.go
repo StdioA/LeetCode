@@ -17,7 +17,8 @@ type TreeNode struct {
 // MakeBiTree Generate an binary tree from a string
 func MakeBiTree(str string) (*TreeNode, error) {
 	length := len(str)
-	if str[0] != '{' || str[length-1] != '}' {
+	s, e := str[0], str[length-1]
+	if !((s == '{' && e == '}') || (s == '[' && e == ']')) {
 		return nil, errors.New("Bad format")
 	}
 
@@ -35,6 +36,10 @@ func MakeBiTree(str string) (*TreeNode, error) {
 		}
 	}
 	return MakeBiTreeIntf(intfs), nil
+}
+
+func New(str string) (*TreeNode, error) {
+	return MakeBiTree(str)
 }
 
 // MakeBiTreeIntf Generate an binary tree from an interface slice

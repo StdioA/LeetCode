@@ -24,6 +24,7 @@ func isPalindrome(head *ListNode) bool {
         cur.Next = prev
         prev, cur = cur, next
     }
+    // Check symmetry nodes
     if length % 2 == 1 {
         cur = cur.Next
     }
