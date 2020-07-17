@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 func checkPerfectNumber(num int) bool {
 	if num == 0 || num == 1 {

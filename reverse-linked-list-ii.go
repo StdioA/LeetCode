@@ -6,11 +6,10 @@ import (
 	"github.com/stdioa/leetcode/linkedlist"
 )
 
-
 type ListNode = linkedlist.ListNode
 
 func reverseBetween(head *ListNode, m int, n int) *ListNode {
-	if (head == nil || head.Next == nil) {
+	if head == nil || head.Next == nil {
 		return head
 	}
 	if m == n {
@@ -19,7 +18,7 @@ func reverseBetween(head *ListNode, m int, n int) *ListNode {
 	// Find head for reversing
 	var phead, rhead *ListNode
 	rhead = head
-    for i := 1; i < m; i++ {
+	for i := 1; i < m; i++ {
 		phead, rhead = rhead, rhead.Next
 	}
 	// Reverse
@@ -27,8 +26,8 @@ func reverseBetween(head *ListNode, m int, n int) *ListNode {
 	prev, cur = rhead, rhead.Next
 	for i := 1; i <= (n - m); i++ {
 		next = cur.Next
-        cur.Next = prev
-        prev, cur = cur, next
+		cur.Next = prev
+		prev, cur = cur, next
 	}
 	// Deal with links around the reversed list
 	if phead != nil {
@@ -40,9 +39,7 @@ func reverseBetween(head *ListNode, m int, n int) *ListNode {
 	return head
 }
 
-
 func main() {
-    list := linkedlist.New([]int{1, 2, 3, 4, 5})
-    fmt.Println(reverseBetween(list, 2, 4))
+	list := linkedlist.New([]int{1, 2, 3, 4, 5})
+	fmt.Println(reverseBetween(list, 2, 4))
 }
-

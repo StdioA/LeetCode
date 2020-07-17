@@ -5,7 +5,7 @@ import "fmt"
 func findRedundantConnection(edges [][]int) []int {
 	pointSet := make(map[int]int)
 
-	find := func (n int) int {
+	find := func(n int) int {
 		for pointSet[n] > 0 {
 			n = pointSet[n]
 		}

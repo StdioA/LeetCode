@@ -28,7 +28,7 @@ func sortList(head *ListNode) *ListNode {
 	l1, l2 = sortList(head), sortList(l1)
 
 	// Merge
-	result := &ListNode{}		// Virtual head
+	result := &ListNode{} // Virtual head
 	resultHead := result
 	for l1 != nil && l2 != nil {
 		if l1.Val < l2.Val {
@@ -54,6 +54,6 @@ func sortList(head *ListNode) *ListNode {
 }
 
 func main() {
-	l := linkedlist.New([]int{-1, 5, 3, 4})	
+	l := linkedlist.New([]int{-1, 5, 3, 4})
 	fmt.Println(sortList(l))
 }

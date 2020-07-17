@@ -9,18 +9,18 @@ import (
 type TreeNode = bitree.TreeNode
 
 func addBST(root *TreeNode, base int) int {
-    if root == nil {
-        return base
-    }
-    rightBase := addBST(root.Right, base)
-    root.Val += rightBase
+	if root == nil {
+		return base
+	}
+	rightBase := addBST(root.Right, base)
+	root.Val += rightBase
 	leftVal := addBST(root.Left, root.Val)
-    return leftVal
+	return leftVal
 }
 
 func convertBST(root *TreeNode) *TreeNode {
-    addBST(root, 0)
-    return root
+	addBST(root, 0)
+	return root
 }
 
 func main() {

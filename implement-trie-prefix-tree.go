@@ -3,8 +3,8 @@ package main
 import "fmt"
 
 type Trie struct {
-    End bool
-    Tree []*Trie
+	End  bool
+	Tree []*Trie
 }
 
 func newTrie() *Trie {
@@ -15,15 +15,15 @@ func newTrie() *Trie {
 
 /** Initialize your data structure here. */
 func Constructor() Trie {
-    return *newTrie()
+	return *newTrie()
 }
 
 /** Inserts a word into the trie. */
-func (this *Trie) Insert(word string)  {
+func (this *Trie) Insert(word string) {
 	node := this
-    for _, r := range word {
+	for _, r := range word {
 		rn := r - 'a'
-		n:= node.Tree[rn]
+		n := node.Tree[rn]
 		if n == nil {
 			node.Tree[rn] = newTrie()
 			n = node.Tree[rn]
@@ -71,6 +71,6 @@ func main() {
 	fmt.Println(trie.Search("apple"))   // returns true
 	fmt.Println(trie.Search("app"))     // returns false
 	fmt.Println(trie.StartsWith("app")) // returns true
-	trie.Insert("app")   
-	fmt.Println(trie.Search("app"))     // returns true
+	trie.Insert("app")
+	fmt.Println(trie.Search("app")) // returns true
 }

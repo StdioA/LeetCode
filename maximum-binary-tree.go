@@ -25,5 +25,5 @@ func constructMaximumBinaryTree(nums []int) *TreeNode {
 }
 
 func main() {
-	fmt.Println(constructMaximumBinaryTree([]int{3,2,1,6,0,5}))
+	fmt.Println(constructMaximumBinaryTree([]int{3, 2, 1, 6, 0, 5}))
 }

@@ -14,9 +14,8 @@ type LRUCache struct {
 	Cap, Len   int
 }
 
-
 func Constructor(capacity int) LRUCache {
-    vnode := new(LRUNode)
+	vnode := new(LRUNode)
 	cache := LRUCache{
 		make(map[int]*LRUNode),
 		vnode, vnode,
@@ -24,7 +23,6 @@ func Constructor(capacity int) LRUCache {
 	}
 	return cache
 }
-
 
 func (this *LRUCache) elevate(node *LRUNode) {
 	prev, next := node.prev, node.next
@@ -45,20 +43,19 @@ func (this *LRUCache) elevate(node *LRUNode) {
 	}
 }
 
-
 func (this *LRUCache) Get(key int) int {
-    var value int
-    node, hit := this.keyMap[key]
-    if hit {
+	var value int
+	node, hit := this.keyMap[key]
+	if hit {
 		value = node.value
 		this.elevate(node)
-    } else {
-        value = -1
-    }
-    return value
+	} else {
+		value = -1
+	}
+	return value
 }
 
-func (this *LRUCache) Put(key int, value int)  {
+func (this *LRUCache) Put(key int, value int) {
 	node, ext := this.keyMap[key]
 	if ext {
 		node.value = value
@@ -70,17 +67,17 @@ func (this *LRUCache) Put(key int, value int)  {
 		key:   key,
 		value: value,
 	}
-    this.keyMap[key] = node
-    prevHead := this.head
-    prevHead.prev, node.next = node, prevHead
+	this.keyMap[key] = node
+	prevHead := this.head
+	prevHead.prev, node.next = node, prevHead
 	this.head = node
-	
-    if this.Len+1 > this.Cap {
+
+	if this.Len+1 > this.Cap {
 		// eliminate tail node
 		tail := this.tail
-        delete(this.keyMap, tail.key)
-        this.tail = tail.prev
-        this.tail.next = nil
+		delete(this.keyMap, tail.key)
+		this.tail = tail.prev
+		this.tail.next = nil
 	} else {
 		this.Len++
 	}

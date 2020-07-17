@@ -4,7 +4,7 @@ import "fmt"
 
 func findCircleNum(M [][]int) int {
 	unionSet := make(map[int]int)
-	find := func (num int) int {
+	find := func(num int) int {
 		for unionSet[num] > 0 {
 			num = unionSet[num]
 		}

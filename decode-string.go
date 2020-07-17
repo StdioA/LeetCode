@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 func decodeString(s string) string {
 	var (
 		result, top string
-		number int
+		number      int
 	)
 	stack := make([]string, 0, len(s))
-	
-	pop := func (stack []string) ([]string, string) {
+
+	pop := func(stack []string) ([]string, string) {
 		result := stack[len(stack)-1]
 		return stack[:len(stack)-1], result
 	}
@@ -29,11 +29,11 @@ func decodeString(s string) string {
 		return base
 	}
 
-    for _, r := range s {
+	for _, r := range s {
 		if r != ']' {
 			if r >= '0' && r <= '9' {
 				// 合并数字
-				number = number * 10 + int(r - '0')
+				number = number*10 + int(r-'0')
 			} else {
 				if number > 0 {
 					stack = append(stack, strconv.Itoa(number))
@@ -64,7 +64,7 @@ func decodeString(s string) string {
 		stack, top = pop(stack)
 		result = manipulate(result, top)
 	}
-    return result
+	return result
 }
 
 func main() {

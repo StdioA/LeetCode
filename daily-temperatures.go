@@ -7,11 +7,11 @@ type DayT struct {
 }
 
 func dailyTemperatures(T []int) []int {
-    length := len(T)
-    result := make([]int, length)
-    stack := make([]DayT, 0)
+	length := len(T)
+	result := make([]int, length)
+	stack := make([]DayT, 0)
 
-    for i, temp := range T {
+	for i, temp := range T {
 		j := len(stack) - 1
 		for ; j >= 0; j-- {
 			dayT := stack[j]
@@ -25,7 +25,6 @@ func dailyTemperatures(T []int) []int {
 	}
 	return result
 }
-
 
 func main() {
 	fmt.Println(dailyTemperatures([]int{73, 74, 75, 71, 69, 72, 76, 73}))
