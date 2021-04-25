@@ -15,6 +15,23 @@ func findDuplicate(nums []int) int {
 	return 0
 }
 
+func findDuplicate2(nums []int) int {
+	var (
+		slow = nums[0]
+		fast = nums[nums[0]]
+	)
+	for slow != fast {
+		slow = nums[slow]
+		fast = nums[nums[fast]]
+	}
+	slow = 0
+	for slow != fast {
+		slow = nums[slow]
+		fast = nums[fast]
+	}
+	return slow
+}
+
 func main() {
-	fmt.Println(findDuplicate([]int{1, 3, 4, 2, 2}))
+	fmt.Println(findDuplicate2([]int{1, 3, 4, 2, 2}))
 }
