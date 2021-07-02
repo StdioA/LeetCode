@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func permute(nums []int) [][]int {
+func permute2(nums []int) [][]int {
 	length := len(nums)
 	if length == 1 {
 		return [][]int{nums}
@@ -21,6 +21,31 @@ func permute(nums []int) [][]int {
 	return result
 }
 
+func genPermutation(nums, current []int, result [][]int) [][]int {
+	if len(current) == len(nums) {
+		result = append(result, current[:])
+		return result
+	}
+	for _, num := range nums {
+		// Check num is in current
+		var occured bool
+		for _, c := range current {
+			if c == num {
+				occured = true
+				break
+			}
+		}
+		if !occured {
+			result = genPermutation(nums, append(current, num), result)
+		}
+	}
+	return result
+}
+
+func permute(arr []int) [][]int {
+	return genPermutation(arr, []int{}, [][]int{})
+}
+
 func main() {
-	fmt.Println(permute([]int{1, 2, 3}))
+	fmt.Println(permute2([]int{1, 2, 3, 4, 5}))
 }
