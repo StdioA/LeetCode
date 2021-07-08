@@ -2,6 +2,19 @@
 # UNFINISHED
 
 class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        from collections import Counter, defaultdict
+        
+        dict_ = defaultdict(list)
+        for s in strs:
+            c = Counter(s)
+            dict_[frozenset(c.items())].append(s)
+        return list(dict_.values())
+
     def groupAnagrams_TLE(self, strs):
         """
         :type strs: List[str]

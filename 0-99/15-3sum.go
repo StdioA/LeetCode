@@ -6,6 +6,50 @@ import (
 )
 
 func threeSum(nums []int) [][]int {
+	var (
+		result [][]int
+		seen   = make(map[int]struct{})
+	)
+	if len(nums) == 0 {
+		return result
+	}
+
+	sort.Ints(nums)
+	for i, num := range nums {
+		// Skip duplicate search for the first num
+		if _, got := seen[num]; got {
+			continue
+		}
+
+		sum := -num
+		// search with double pointer
+		begin, end := i+1, len(nums)-1
+		for begin < end {
+			b, e := nums[begin], nums[end]
+			switch {
+			case b+e == sum:
+				result = append(result, []int{num, b, e})
+				seen[num] = struct{}{}
+
+				// Skip the duplicate
+				for nums[begin] == b && begin < end {
+					begin++
+				}
+				for nums[end] == e && begin < end {
+					end--
+				}
+			case b+e < sum:
+				begin++
+			default:
+				end--
+			}
+		}
+		seen[num] = struct{}{}
+	}
+	return result
+}
+
+func threeSumTLE(nums []int) [][]int {
 	sort.Ints(nums)
 	result := make([][]int, 0)
 	count := make(map[int][]int)
@@ -67,7 +111,6 @@ func threeSum(nums []int) [][]int {
 }
 
 func main() {
-	// l := []int{-1, 0, 1, 2, -1, -4}
-	l := []int{-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6}
-	fmt.Println(threeSum(l))
+	fmt.Println(threeSum([]int{-1, 0, 1, 2, -1, -4}))
+	fmt.Println(threeSum([]int{1, -1, -1, 0}))
 }
