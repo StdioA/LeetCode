@@ -12,11 +12,11 @@ def fetch_question_name(title):
         "variables": {
             "titleSlug": title,
         },
-        "query":"query questionData($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {\n    questionId\n }\n}\n",
+        "query":"query questionData($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {\n  questionId\n  questionFrontendId\n }\n}\n",
     }
     res = requests.post("https://leetcode.com/graphql", headers=headers, json=payload)
     question = res.json()['data']['question']
-    return int(question['questionId']) if question is not None else 0
+    return int(question['questionFrontendId']) if question is not None else 0
 
 
 def gen_group(id_):
