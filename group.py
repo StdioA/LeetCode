@@ -1,10 +1,12 @@
-import requests
+import json
 import os
 import shutil
 import sys
+import requests
 
 
-headers = {}
+with open("config.json") as f:
+    headers = json.load(f)["headers"]
 
 def fetch_question_name(title):
     payload = {
@@ -12,7 +14,13 @@ def fetch_question_name(title):
         "variables": {
             "titleSlug": title,
         },
-        "query":"query questionData($titleSlug: String!) {\n  question(titleSlug: $titleSlug) {\n  questionId\n  questionFrontendId\n }\n}\n",
+        "query":"""\
+query questionData($titleSlug: String!) {
+  question(titleSlug: $titleSlug) {
+  questionId
+  questionFrontendId
+ }
+}""",
     }
     res = requests.post("https://leetcode.com/graphql", headers=headers, json=payload)
     question = res.json()['data']['question']
