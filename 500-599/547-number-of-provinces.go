@@ -30,6 +30,41 @@ func findCircleNum(M [][]int) int {
 	return count
 }
 
+func findCircleNum2(isConnected [][]int) int {
+	type union struct {
+		root *union
+	}
+	var (
+		total     = len(isConnected)
+		unions    = make([]*union, total)
+		seperated = total
+	)
+	for i := 0; i < total; i++ {
+		unions[i] = &union{}
+	}
+
+	for i, row := range isConnected {
+		for j, val := range row {
+			if val == 0 {
+				continue
+			}
+			// join
+			ui, uj := unions[i], unions[j]
+			for ui.root != nil {
+				ui = ui.root
+			}
+			for uj.root != nil {
+				uj = uj.root
+			}
+			if ui != uj {
+				ui.root = uj
+				seperated--
+			}
+		}
+	}
+	return seperated
+}
+
 func main() {
 	relations := [][]int{
 		{1, 1, 0},
