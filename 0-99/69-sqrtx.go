@@ -6,27 +6,21 @@ func mySqrt(x int) int {
 	}
 	var (
 		lower = 1
-		upper = x/2 + 1
-		num   = (lower + upper) / 2
+		upper = (x + 1) / 2
 	)
-	for {
-		product := num * num
-		nextProduct := (num + 1) * (num + 1)
+	for lower < upper {
+		mid := (lower + upper) / 2
+		sqr, nsqr := mid*mid, (mid+1)*(mid+1)
 		switch {
-		case product == x:
-			return num
-		case nextProduct == x:
-			return num + 1
-		case product > x:
-			upper = num
-			num = (num + lower) / 2
-		case product < x:
-			if nextProduct > x {
-				return num
-			}
-			lower = num + 1
-			num = (num + upper) / 2
+		case sqr > x:
+			upper = mid
+		case nsqr < x:
+			lower = mid + 1
+		case nsqr == x:
+			return mid + 1
+		default:
+			return mid
 		}
 	}
-	return 0
+	return lower
 }
