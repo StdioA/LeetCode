@@ -6,74 +6,19 @@ import (
 )
 
 func searchMatrix(matrix [][]int, target int) bool {
-	m, n := 0, 0
-	// binary search m
-	minM, maxM := 0, len(matrix)-1
-	for minM < maxM {
-		midM := (minM + maxM) / 2
-		if matrix[midM][0] < target {
-			minM = midM + 1
-		} else if matrix[midM][0] > target {
-			maxM = midM
-		} else {
+	var (
+		m, n = len(matrix), len(matrix[0])
+		i, j = 0, n - 1
+	)
+	for i < m && j >= 0 {
+		num := matrix[i][j]
+		switch {
+		case num == target:
 			return true
-		}
-	}
-	m = minM
-	for m >= 0 && matrix[m][0] > target {
-		m--
-	}
-
-	// binary search n
-	minN, maxN := 0, len(matrix[0])-1
-	for minN < maxN {
-		midN := (minN + maxN) / 2
-		if matrix[midN][0] < target {
-			minN = midN + 1
-		} else if matrix[midN][0] > target {
-			maxN = midN
-		} else {
-			return true
-		}
-	}
-	n = minN
-	for n >= 0 && matrix[0][n] > target {
-		n--
-	}
-	fmt.Println(m, n)
-	if m < 0 || n < 0 {
-		return false
-	}
-
-	// binary search row
-	minM, maxM = 0, len(matrix)-1
-	if maxM < minM {
-		maxM = minM
-	}
-	for minM < maxM {
-		midM := (minM + maxM) / 2
-		if matrix[midM][n] < target {
-			minM = midM + 1
-		} else if matrix[midM][n] > target {
-			maxM = midM
-		} else {
-			return true
-		}
-	}
-
-	// binary search col
-	if maxM < minM {
-		maxM = minM
-	}
-	minM, maxM = 0, len(matrix[0])-1
-	for minM < maxM {
-		midM := (minM + maxM) / 2
-		if matrix[m][midM] < target {
-			minM = midM + 1
-		} else if matrix[m][midM] > target {
-			maxM = midM
-		} else {
-			return true
+		case num < target:
+			i++
+		default:
+			j--
 		}
 	}
 	return false
