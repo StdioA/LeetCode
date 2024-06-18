@@ -6,7 +6,7 @@ func firstCompleteIndex(arr []int, mat [][]int) int {
 	}
 	var (
 		row, col       = len(mat), len(mat[0])
-		rowSum, colSum = make([]int, len(mat)), make([]int, len(mat[0]))
+		rowCnt, colCnt = make([]int, len(mat)), make([]int, len(mat[0]))
 		coordinateMap  = make(map[int]coordinate)
 	)
 	for i, row := range mat {
@@ -16,9 +16,9 @@ func firstCompleteIndex(arr []int, mat [][]int) int {
 	}
 	for index, num := range arr {
 		coordinate := coordinateMap[num]
-		rowSum[coordinate.x]++
-		colSum[coordinate.y]++
-		if rowSum[coordinate.x] == col || colSum[coordinate.y] == row {
+		rowCnt[coordinate.x]++
+		colCnt[coordinate.y]++
+		if rowCnt[coordinate.x] == col || colCnt[coordinate.y] == row {
 			return index
 		}
 	}
