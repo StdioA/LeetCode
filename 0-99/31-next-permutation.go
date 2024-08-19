@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func reverse(nums []int) {
 	for i := len(nums)/2 - 1; i >= 0; i-- {
 		opp := len(nums) - 1 - i
@@ -30,18 +28,18 @@ func nextPermutation(nums []int) {
 	reverse(nums[left:])
 }
 
-func main() {
-	var l []int
-	l = []int{1, 2}
-	nextPermutation(l)
-	fmt.Println(l)
-	l = []int{1, 3, 2}
-	nextPermutation(l)
-	fmt.Println(l)
-	l = []int{1, 2, 3}
-	nextPermutation(l)
-	fmt.Println(l)
-}
+// func main() {
+// 	var l []int
+// 	l = []int{1, 2}
+// 	nextPermutation(l)
+// 	fmt.Println(l)
+// 	l = []int{1, 3, 2}
+// 	nextPermutation(l)
+// 	fmt.Println(l)
+// 	l = []int{1, 2, 3}
+// 	nextPermutation(l)
+// 	fmt.Println(l)
+// }
 
 // (l) / 2
 // 3 -> i < 1
