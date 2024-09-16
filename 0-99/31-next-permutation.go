@@ -10,12 +10,15 @@ func reverse(nums []int) {
 func nextPermutation(nums []int) {
 	length := len(nums)
 	left, right := 0, length-1
+	// 找到第一个升序的数对，左边的那个数就是需要交换的
+	// 此时右边的所有数都是降序的
 	for right > 0 && nums[right] <= nums[right-1] {
 		right--
 	}
 	if right > 0 {
 		left = right - 1
 		right = length - 1
+		// 找到第一个比左边的数还要大的数，并将其交换
 		for right > left && nums[right] <= nums[left] {
 			right--
 		}
@@ -24,9 +27,22 @@ func nextPermutation(nums []int) {
 		}
 		left++
 	}
-	// reverse
+	// 交换之后，就要重排左边之后的数，使其变成升序
 	reverse(nums[left:])
 }
+
+
+1 2 3 4
+1 2 4 3
+1 3 2 4
+1 3 4 2
+1 4 2 3
+1 4 3 2
+2 1 3 4
+
+2 4 3 1
+3 1 2 4
+
 
 // func main() {
 // 	var l []int
