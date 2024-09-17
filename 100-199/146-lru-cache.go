@@ -3,84 +3,71 @@ package main
 import "fmt"
 
 type LRUNode struct {
-	key        int
-	value      int
+	key, value int
 	prev, next *LRUNode
 }
 
 type LRUCache struct {
-	keyMap     map[int]*LRUNode
 	head, tail *LRUNode
+	cache      map[int]*LRUNode
 	Cap, Len   int
 }
 
 func Constructor(capacity int) LRUCache {
-	vnode := new(LRUNode)
 	cache := LRUCache{
-		make(map[int]*LRUNode),
-		vnode, vnode,
-		capacity, 1,
+		head:  new(LRUNode),
+		tail:  new(LRUNode),
+		cache: make(map[int]*LRUNode),
+		Cap:   capacity,
+		Len:   0,
 	}
+	cache.head.next = cache.tail
+	cache.tail.prev = cache.head
 	return cache
 }
 
 func (this *LRUCache) elevate(node *LRUNode) {
+	// disconnect
 	prev, next := node.prev, node.next
-	if node != this.head {
-		if prev != nil {
-			prev.next = next
-		}
-		if next != nil {
-			next.prev = prev
-		}
-		prevHead := this.head
-		prevHead.prev, node.next = node, prevHead
-		node.prev = nil
-		this.head = node
+	if prev != nil && next != nil {
+		prev.next, next.prev = next, prev
 	}
-	if node == this.tail && prev != nil {
-		this.tail = prev
-	}
+
+	// Connect with head
+	head, next := this.head, this.head.next
+	head.next, next.prev = node, node
+	node.next, node.prev = next, head
 }
 
 func (this *LRUCache) Get(key int) int {
-	var value int
-	node, hit := this.keyMap[key]
-	if hit {
-		value = node.value
-		this.elevate(node)
-	} else {
-		value = -1
+	node, ok := this.cache[key]
+	if !ok {
+		return -1
 	}
-	return value
+	this.elevate(node)
+	return node.value
 }
 
 func (this *LRUCache) Put(key int, value int) {
-	node, ext := this.keyMap[key]
-	if ext {
+	node, ok := this.cache[key]
+	if ok {
 		node.value = value
-		this.elevate(node)
-		return
-	}
-
-	node = &LRUNode{
-		key:   key,
-		value: value,
-	}
-	this.keyMap[key] = node
-	prevHead := this.head
-	prevHead.prev, node.next = node, prevHead
-	this.head = node
-
-	if this.Len+1 > this.Cap {
-		// eliminate tail node
-		tail := this.tail
-		delete(this.keyMap, tail.key)
-		this.tail = tail.prev
-		this.tail.next = nil
 	} else {
-		this.Len++
+		// Put new node to the head
+		node = &LRUNode{
+			key:   key,
+			value: value,
+		}
+		this.cache[key] = node
+		if len(this.cache) > this.Cap {
+			// Evict tail node
+			tail := this.tail.prev
+			delete(this.cache, tail.key)
+			prev := tail.prev
+			this.tail.prev, prev.next = prev, this.tail
+		}
 	}
+	this.elevate(node)
 }
 
 func (cache *LRUCache) print() {
@@ -104,6 +91,7 @@ func main() {
 	cache.Put(1, 1)
 	cache.Put(2, 3)
 	cache.Put(4, 1)
+	cache.print()
 	fmt.Println(cache.Get(1))
 	fmt.Println(cache.Get(2))
 }
